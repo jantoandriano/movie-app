@@ -8,7 +8,7 @@ function useGetMovies(searchValue) {
   const [isFetching, setIsFetching] = useInfiniteScroll(moreData);
 
   const getMovieRequest = async (searchValue) => {
-    const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=caa22349&page=${page}`;
+    const url = `https://www.omdbapi.com/?s=${searchValue}&apikey=caa22349&page=${page}`;
 
     const res = await axios.get(url);
 
@@ -18,7 +18,7 @@ function useGetMovies(searchValue) {
   };
 
   function moreData() {
-    const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=caa22349&page=${page}`;
+    const url = `https://www.omdbapi.com/?s=${searchValue}&apikey=caa22349&page=${page}`;
     axios.get(url).then((res) => {
       setMovies([...movies, ...res.data.Search]);
 

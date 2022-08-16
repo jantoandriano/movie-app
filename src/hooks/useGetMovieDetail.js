@@ -7,7 +7,7 @@ function useGetMovieDetail(movieid) {
 
   const getMovieDetail = async () => {
     setIsLoading(true);
-    const url = `http://www.omdbapi.com/?i=${movieid}&apikey=caa22349`;
+    const url = `https://www.omdbapi.com/?i=${movieid}&apikey=caa22349`;
     const response = await axios.get(url);
     if (response.data) {
       setDetailMovie(response.data);
