@@ -1,17 +1,21 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import MovieList from "./pages/MovieList";
-import MovieDetail from "./pages/MovieDetail";
-import MyList from "./pages/MyList";
+const MovieListComponent = React.lazy(() => import("./pages/MovieList"));
+const MovieDetailComponent = React.lazy(() => import("./pages/MovieDetail"));
+const MyListComponent = React.lazy(() => import("./pages/MyList"));
 
 const App = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MovieList />} />
-        <Route path="/movie/:movieid" element={<MovieDetail />} />
-        <Route path="/movie/fav" element={<MyList />} />
-      </Routes>
+      <Suspense
+        fallback={<div style={{ textAlign: "center" }}>Loading...</div>}
+      >
+        <Routes>
+          <Route path="/" element={<MovieListComponent />} />
+          <Route path="/movie/:movieid" element={<MovieDetailComponent />} />
+          <Route path="/movie/fav" element={<MyListComponent />} />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 };
