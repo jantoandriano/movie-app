@@ -22,6 +22,7 @@ function useFavourites() {
       const newFavouriteList = [...favourites, movie];
       setFavourites(newFavouriteList);
       saveToLocalStorage(newFavouriteList);
+      window.alert("Added to favourites");
       return;
     } else {
       const found = favourites.find((fav) => fav.imdbID === movie.imdbID);
@@ -29,6 +30,7 @@ function useFavourites() {
         const newFavouriteList = [...favourites, movie];
         setFavourites(newFavouriteList);
         saveToLocalStorage(newFavouriteList);
+        window.alert("Added to favourites");
         return;
       }
       window.alert("cannot add same movie to favourites");
