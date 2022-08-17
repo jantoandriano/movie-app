@@ -1,11 +1,11 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 function useGetMovieDetail(movieid) {
   const [detailMovie, setDetailMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
-  const getMovieDetail = async () => {
+  const getMovieDetail = useCallback(async () => {
     setIsLoading(true);
     const url = `https://www.omdbapi.com/?i=${movieid}&apikey=caa22349`;
     const response = await axios.get(url);
@@ -13,11 +13,11 @@ function useGetMovieDetail(movieid) {
       setDetailMovie(response.data);
       setIsLoading(false);
     }
-  };
+  }, [movieid]);
 
   useEffect(() => {
     getMovieDetail();
-  }, [movieid]);
+  }, [movieid, getMovieDetail]);
 
   console.log(detailMovie);
 
