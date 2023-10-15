@@ -20,7 +20,7 @@ const SearchBox = (props) => {
     <>
       <InputSearch
         value={props.value}
-        onChange={(event) => props.setSearchValue(event.target.value)}
+        onChange={props.setSearchValue}
         placeholder="Type to search..."
       />
     </>
