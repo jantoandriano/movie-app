@@ -2,7 +2,6 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import useGetMovieDetail from "../hooks/useGetMovieDetail";
-import LoaderDetailMovie from "../components/LoaderDetailMovie";
 import Comments from "../components/comments";
 
 const MovieDetailWrapper = styled.div`
@@ -11,20 +10,21 @@ const MovieDetailWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  font-family: 'Poppins', sans-serif;
 `;
 
 const Image = styled.img`
-width: 300px;
-height: 300px;
   display: block;
   border: 2px solid black;
   border-radius: 10px;
+  width: 300px;
+  height: 300px;
+  backround-size: cover;
 `;
 
 const MovieDetailInfo = styled.div`
   margin: 2rem;
-  width: 300px;
-  height: 300px;
+  width: 100;
   padding: 10px;
   border-radius: 10px;
   border: 2px solid black;
@@ -72,7 +72,7 @@ function MovieDetail() {
   if (isLoading) {
     return (
       <MovieDetailWrapper>
-        <LoaderDetailMovie />
+        Loading...
       </MovieDetailWrapper>
     );
   }

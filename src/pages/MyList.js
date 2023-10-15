@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { Favcontext } from "../contexts/Favourites";
 import MovieListHeading from "../components/MovieListHeading";
 import { MovieCard } from "../components/MovieCard";
+import { Link } from "react-router-dom";
 
 const FavWrapper = styled.div`
   margin: 2rem;
@@ -19,9 +20,13 @@ function MovieDetail() {
       <FavWrapper>
         <MovieListHeading heading="Favorites" />
         {
-          favourites.map(val => (
+          favourites?.length ? favourites.map(val => (
             <MovieCard movie={val} page="fav" />
           ))
+            :
+            <div>
+              <Link to={'/'}>Home</Link>
+            </div>
         }
       </FavWrapper>
 

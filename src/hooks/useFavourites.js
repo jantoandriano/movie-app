@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from 'react-hot-toast';
 
 function useFavourites() {
   const [favourites, setFavourites] = useState([]);
@@ -21,7 +22,7 @@ function useFavourites() {
     const newFavouriteList = [...favourites, movie];
     setFavourites(newFavouriteList);
     saveToLocalStorage(newFavouriteList);
-    window.alert("Added to favourites");
+    toast('Added to fav');
     return;
   };
 

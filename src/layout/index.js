@@ -23,6 +23,7 @@ const Flex = styled.div`
 
 const Container = styled.div`
   margin: 2rem;
+  font-family: 'Poppins', sans-serif;
 `;
 
 function Layout(props) {
