@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
-import FavContext, { Favcontext } from "../contexts/Favourites";
+import { Favcontext } from "../contexts/Favourites";
 
 const MoviesWrapper = styled.div`
   display: flex;
@@ -13,8 +13,10 @@ const MoviesWrapper = styled.div`
 `;
 
 const MoviesImage = styled.img`
-  height: 400px;
+  height: 300px;
   width: 300px;
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 const MoviesInfo = styled.div`
@@ -34,45 +36,45 @@ const MoviesInfo = styled.div`
 `;
 
 const Button = styled.div`
-  width: 100px;
-  height: 30px;
   background-color: ${(props) => {
-        if (props.type === "primary") {
-            return "red";
-        }
-        if (props.type === "secondary") {
-            return "blue";
-        }
-    }};
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    if (props.type === "primary") {
+      return "#F99417";
+    }
+    if (props.type === "secondary") {
+      return "#5272F2";
+    }
+  }};
+  text-align: center;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 5px;
   color: #ffffff;
+  padding: 10px;
 `;
 
 
 export const MovieCard = (props) => {
-    const { addFavouriteMovie } = useContext(Favcontext);
+  const { addFavouriteMovie, removeFavouriteMovie } = useContext(Favcontext);
 
-    const { movie } = props
+  const { movie, page } = props
+  const urlImage = `https://image.tmdb.org/t/p/w300/${movie.poster_path}`
 
-    return (
-        <MoviesWrapper>
-            <Link to={`/movie/${movie.imdbID}`}>
-                <MoviesImage src={movie.Poster} alt="movie" width={200} />
-            </Link>
+  return (
+    <MoviesWrapper>
+      <Link to={`/movie/${movie.id}`}>
+        <MoviesImage src={urlImage} alt="movie" width={200} />
+      </Link>
 
-            <MoviesInfo>
-                <p>{movie.Title}</p>
-                <p>{movie.Year}</p>
-                <p>{movie.Type}</p>
-            </MoviesInfo>
-            <Button type="secondary" onClick={() => addFavouriteMovie(movie)}>
-                Save
-            </Button>
-        </MoviesWrapper>
-    )
+      <MoviesInfo>
+        <p>{movie.title}</p>
+        <p>{movie.release_date}</p>
+      </MoviesInfo>
+      {
+        page === 'fav' ? <Button type="secondary" onClick={() => removeFavouriteMovie(movie)}>
+          Remove
+        </Button> : <Button type="primary" onClick={() => addFavouriteMovie(movie)}>
+          Add to Favorite
+        </Button>
+      }
+    </MoviesWrapper>
+  )
 }

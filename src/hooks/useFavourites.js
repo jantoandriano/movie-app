@@ -18,28 +18,16 @@ function useFavourites() {
   };
 
   const addFavouriteMovie = (movie) => {
-    if (!favourites.length) {
-      const newFavouriteList = [...favourites, movie];
-      setFavourites(newFavouriteList);
-      saveToLocalStorage(newFavouriteList);
-      window.alert("Added to favourites");
-      return;
-    } else {
-      const found = favourites.find((fav) => fav.imdbID === movie.imdbID);
-      if (!found) {
-        const newFavouriteList = [...favourites, movie];
-        setFavourites(newFavouriteList);
-        saveToLocalStorage(newFavouriteList);
-        window.alert("Added to favourites");
-        return;
-      }
-      window.alert("cannot add same movie to favourites");
-    }
+    const newFavouriteList = [...favourites, movie];
+    setFavourites(newFavouriteList);
+    saveToLocalStorage(newFavouriteList);
+    window.alert("Added to favourites");
+    return;
   };
 
   const removeFavouriteMovie = (movie) => {
     const newFavouriteList = favourites.filter(
-      (favourite) => favourite.imdbID !== movie.imdbID
+      (favourite) => favourite.id !== movie.id
     );
 
     setFavourites(newFavouriteList);

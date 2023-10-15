@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import useGetMovieDetail from "../hooks/useGetMovieDetail";
 import LoaderDetailMovie from "../components/LoaderDetailMovie";
+import Comments from "../components/comments";
 
 const MovieDetailWrapper = styled.div`
   margin: 2rem;
@@ -13,32 +14,55 @@ const MovieDetailWrapper = styled.div`
 `;
 
 const Image = styled.img`
-  width: 400px;
-  height: 400px;
+width: 300px;
+height: 300px;
   display: block;
+  border: 2px solid black;
+  border-radius: 10px;
 `;
 
 const MovieDetailInfo = styled.div`
   margin: 2rem;
+  width: 300px;
+  height: 300px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  text-align: center;
-  width: 300px;
-  height: 300px;
 `;
 
 const Back = styled.div`
-  width: 90px;
-  height: 30px;
   padding: 10px;
   background-color: grey;
+  cursor: pointer;
+  text-align: center;
+  color: white;
+  font-size: 1rem;
+`;
+
+const Title = styled.div`
+  font-size: 2rem;
+  padding: 10px;
+  text-align: center;
+`
+
+const GenreItem = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-`;
+  gap: 10px;
+`
+
+const Description = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+`
 
 function MovieDetail() {
   const { movieid } = useParams();
@@ -57,22 +81,43 @@ function MovieDetail() {
     <MovieDetailWrapper>
       <Image
         isLoading={isLoading}
-        src={detailMovie.Poster}
-        alt={detailMovie.Title}
+        src={`https://image.tmdb.org/t/p/w300/${detailMovie.poster_path}`}
+        alt={detailMovie.title}
       />
 
       <MovieDetailInfo isLoading={isLoading}>
-        <div>
-          {detailMovie.Title} - {detailMovie.Year}
-        </div>
-        <div>{detailMovie.Genre}</div>
-
-        <p>{detailMovie.Actors}</p>
-        <p>{detailMovie.Plot}</p>
-        <Back onClick={() => navigate("/", { replace: true })}>Back</Back>
+        <Title>
+          {detailMovie.title}
+        </Title>
+        <Genres data={detailMovie?.genres || []} />
+        <Description>{detailMovie.overview}</Description>
+        <Back onClick={() => navigate("/", { replace: true })}>
+          Back
+        </Back>
       </MovieDetailInfo>
+      <Comments />
     </MovieDetailWrapper>
   );
 }
 
 export default MovieDetail;
+
+
+const Genres = (props) => {
+  const items = props.data
+  if (items?.length === 0) {
+    return (
+      <div></div>
+    )
+  }
+
+  return (
+    <GenreItem>
+      {items.map(val => (
+        <div>
+          {val.name}
+        </div>
+      ))}
+    </GenreItem>
+  )
+}
